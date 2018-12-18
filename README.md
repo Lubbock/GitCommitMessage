@@ -12,12 +12,11 @@ download GitCommitMessagePlugin.jar and import plugin to IDEA
 ## Usage
 Template example:
 ```
-    # Type(<${type:"(?<=_)[a-zA-Z0-9]+"}>):   ${subject:"(?<=_)[a-zA-Z0-9]+"}
-    
-    # <body>
-     ${body:"(?<=_)[a-zA-Z0-9]+"}
-    # <footer>
-     ${footer:"(?<=_)[a-zA-Z0-9]+"}
+${type:"(?<=_)[a-zA-Z0-9]+"}:${subject:"(?<=_)[a-zA-Z0-9]+"}
+
+${body:"(?<=_)[a-zA-Z0-9]+"}
+
+${footer:"(?<=_)[a-zA-Z0-9]+"}
 ```
 Template variable
  - type

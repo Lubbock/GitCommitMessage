@@ -19,6 +19,13 @@ Template example:
     # <footer>
      ${footer:"(?<=_)[a-zA-Z0-9]+"}
 ```
+Template variable
+ - type
+ - subject
+ - body
+ - footer
+ 
+varible must be use as **${variable:regex}**
 
 ## License
 

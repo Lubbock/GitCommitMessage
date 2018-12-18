@@ -6,17 +6,19 @@ All variables can have an optional RegEx expression, that is parsing the Git or 
 
 
 ## Installation
+download GitCommitMessagePlugin.jar and import plugin to IDEA
 
-Install directly from the IDE plugin manager (File > Settings > Plugins > Browser repositories > Git Commit Template)
-
+<!-- Install directly from the IDE plugin manager (File > Settings > Plugins > Browser repositories > Git Commit Template)-->
 ## Usage
 Template example:
 ```
-JiraId: ${ticket:"JiraID-[0-9]{1,10}"} ${shortDescription}
-    ${longDescription:"(?<=_)[a-zA-Z0-9]+"}
+    # Type(<${type:"(?<=_)[a-zA-Z0-9]+"}>):   ${subject:"(?<=_)[a-zA-Z0-9]+"}
+    
+    # <body>
+     ${body:"(?<=_)[a-zA-Z0-9]+"}
+    # <footer>
+     ${footer:"(?<=_)[a-zA-Z0-9]+"}
 ```
-
-e.g. feature/JiraID-1234_Test_Branch (git branch) -> JiraId-1234
 
 ## License
 

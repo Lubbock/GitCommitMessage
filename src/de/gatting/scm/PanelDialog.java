@@ -39,16 +39,18 @@ public class PanelDialog extends DialogWrapper {
 
     String getCommitMessage(Project project) {
         String templateString = TemplateFileHandler.loadFile(project);
-        templateString = CommitMessage.replaceVariableWithinTemplate(templateString, Consts.TICKET, panel.getTicket());
-        templateString = CommitMessage.replaceVariableWithinTemplate(templateString, Consts.SHORT_DESCRIPTION, panel.getShortDescription());
-        templateString = CommitMessage.replaceVariableWithinTemplate(templateString, Consts.LONG_DESCRIPTION, getLongDescription(templateString));
+        templateString = CommitMessage.replaceVariableWithinTemplate(templateString, Consts.type, panel.getType());
+        templateString = CommitMessage.replaceVariableWithinTemplate(templateString, Consts.footer, panel.getFooter());
+        templateString = CommitMessage.replaceVariableWithinTemplate(templateString, Consts.subject, panel.getSubject());
+        templateString = CommitMessage.replaceVariableWithinTemplate(templateString, Consts.body, getLongDescription(templateString));
         return templateString;
     }
 
+
     private String getLongDescription(String templateString) {
-        String longDescription = panel.getLongDescription();
+        String longDescription = panel.getBody();
         // Get the empty Spaces in templates in new Line and the longDescription Variable
-        String searchString = CommitMessage.getVariableWithRegex(Consts.LONG_DESCRIPTION, templateString);
+        String searchString = CommitMessage.getVariableWithRegex(Consts.body, templateString);
         String emptySpaces =
                 StringUtils.substringBetween(templateString, identifyLineDelimiter(templateString), searchString);
         String lineDelimiter = identifyLineDelimiter(longDescription);

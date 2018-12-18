@@ -41,16 +41,19 @@ public class GetCommitMessageAction extends AnAction {
         String branchName = CommitMessage.extractBranchName(project);
 
         // Ticket
-        String parsedTicket = CommitMessage.parseBranchNameByRegex(branchName, Consts.TICKET, templateString);
-        templateString = CommitMessage.replaceVariableWithinTemplate(templateString, Consts.TICKET, parsedTicket);
+        String parsedTicket = CommitMessage.parseBranchNameByRegex(branchName, Consts.type, templateString);
+        templateString = CommitMessage.replaceVariableWithinTemplate(templateString, Consts.type, parsedTicket);
+
+        String var1 = CommitMessage.parseBranchNameByRegex(branchName, Consts.subject, templateString);
+        templateString = CommitMessage.replaceVariableWithinTemplate(templateString, Consts.subject, var1);
 
         // ShortDescription
-        String parsedShortDescription = CommitMessage.parseBranchNameByRegex(branchName, Consts.SHORT_DESCRIPTION, templateString);
-        templateString = CommitMessage.replaceVariableWithinTemplate(templateString, Consts.SHORT_DESCRIPTION, parsedShortDescription);
+        String parsedShortDescription = CommitMessage.parseBranchNameByRegex(branchName, Consts.body, templateString);
+        templateString = CommitMessage.replaceVariableWithinTemplate(templateString, Consts.body, parsedShortDescription);
 
         // LongDescription
-        String parsedLongDescription = CommitMessage.parseBranchNameByRegex(branchName, Consts.LONG_DESCRIPTION, templateString);
-        templateString = CommitMessage.replaceVariableWithinTemplate(templateString, Consts.LONG_DESCRIPTION, parsedLongDescription);
+        String parsedLongDescription = CommitMessage.parseBranchNameByRegex(branchName, Consts.footer, templateString);
+        templateString = CommitMessage.replaceVariableWithinTemplate(templateString, Consts.footer, parsedLongDescription);
 
         return templateString;
     }

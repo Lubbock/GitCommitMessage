@@ -7,20 +7,20 @@ import com.intellij.openapi.ui.DialogWrapper;
 import javax.swing.*;
 
 public class Panel {
+    private JComboBox type;
+    private JTextField subject;
+    private JTextField footer;
+    private JTextArea body;
     private JPanel mainPanel;
-    private JTextField ticket;
-    private JTextField shortDescription;
-    private JTextArea longDescription;
     private JButton changeTemplateButton;
 
     Panel(Project project) {
-
-        String branch = CommitMessage.extractBranchName(project);
-        if (branch != null) {
-            // Branch name  matches Ticket Name
-            setTextFieldsBasedOnBranch(branch, project);
-        }
-
+//        String branch = CommitMessage.extractBranchName(project);
+//        if (branch != null) {
+//            // Branch name  matches Ticket Name
+//            setTextFieldsBasedOnBranch(branch, project);
+//        }
+//
         changeTemplateButton.addActionListener(e -> {
             DialogWrapper dialog = createTemplateDialog(project);
             if (dialog.getExitCode() != DialogWrapper.OK_EXIT_CODE) {
@@ -34,21 +34,26 @@ public class Panel {
 
         String templateString = TemplateFileHandler.loadFile(project);
         // Ticket
-        String parsedTicket = CommitMessage.parseBranchNameByRegex(branchName, Consts.TICKET, templateString);
-        if (CommitMessage.isRegExForVariableInTemplateDefined(templateString, Consts.TICKET)) {
-            ticket.setText(parsedTicket);
+        String parsedTicket = CommitMessage.parseBranchNameByRegex(branchName, Consts.type, templateString);
+        if (CommitMessage.isRegExForVariableInTemplateDefined(templateString, Consts.type)) {
+            type.setSelectedItem(parsedTicket);
+        }
+
+        String parsedSubj = CommitMessage.parseBranchNameByRegex(branchName, Consts.subject, templateString);
+        if (CommitMessage.isRegExForVariableInTemplateDefined(templateString, Consts.subject)) {
+            subject.setText(parsedSubj);
         }
 
         // ShortDescription
-        String parsedShortDescription = CommitMessage.parseBranchNameByRegex(branchName, Consts.SHORT_DESCRIPTION, templateString);
-        if (CommitMessage.isRegExForVariableInTemplateDefined(templateString, Consts.SHORT_DESCRIPTION)) {
-            shortDescription.setText(parsedShortDescription);
+        String parsedShortDescription = CommitMessage.parseBranchNameByRegex(branchName, Consts.footer, templateString);
+        if (CommitMessage.isRegExForVariableInTemplateDefined(templateString, Consts.footer)) {
+            footer.setText(parsedShortDescription);
         }
 
         // LongDescription
-        String parsedLongDescription = CommitMessage.parseBranchNameByRegex(branchName, Consts.LONG_DESCRIPTION, templateString);
-        if (CommitMessage.isRegExForVariableInTemplateDefined(templateString, Consts.LONG_DESCRIPTION)) {
-            longDescription.setText(parsedLongDescription);
+        String parsedLongDescription = CommitMessage.parseBranchNameByRegex(branchName, Consts.body, templateString);
+        if (CommitMessage.isRegExForVariableInTemplateDefined(templateString, Consts.body)) {
+            body.setText(parsedLongDescription);
         }
     }
 
@@ -56,16 +61,24 @@ public class Panel {
         return mainPanel;
     }
 
-    public String getTicket() {
-        return this.ticket.getText();
+    public String getType() {
+        return type.getSelectedItem().toString();
     }
 
-    public String getShortDescription() {
-        return shortDescription.getText().trim();
+
+    public String getSubject() {
+        return subject.getText().trim();
     }
 
-    public String getLongDescription() {
-        return longDescription.getText().trim();
+
+    public String getFooter() {
+        return footer.getText().trim();
+    }
+
+
+
+    public String getBody() {
+        return body.getText().trim();
     }
 
 
@@ -84,5 +97,4 @@ public class Panel {
         }
         return builder.getDialogWrapper();
     }
-
 }
